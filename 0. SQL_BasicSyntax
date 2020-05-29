@@ -31,6 +31,9 @@ V. ADVANCE:
 5.1 "SELECT INTO" Statement
 5.2 "INSERT INTO SELECT" Statement
 5.3 UPDATE "Columns" Statement
+5.4 Trigger
+5.5 Store 
+5.6 Nested Queries
 -----------------------------------------------------------------
 I. COMMONS
 1. SELECT Statement
@@ -175,9 +178,85 @@ Syntax:
 		table_name1.column2 = table_name2.columnB
 	FROM table_name1
 	JOIN table_name2 ON table_name1.ForeignKey = table_name2.Key
+
+5.4 Trigger
+	A trigger is a stored procedure that runs automatically when various events happen (eg update, insert, delete).
+	Syntax:
+		create trigger [trigger_name] 
+		[before | after]  
+		{insert | update | delete}  
+		on [table_name]  
+		[for each row]  
+		[trigger_body] 
+	
+	Sample:
+		create trigger stud_marks 
+		before INSERT 
+		on 
+		Student 
+		for each row 
+		set Student.total = Student.subj1 + Student.subj2 + Student.subj3, Student.per = Student.total * 60 / 100;
+	
+5.5 Store Procedure
+	A stored procedure is a user defined piece of code written in the local version of PL/SQL, 
+	which may return a value (making it a function) that is invoked by calling it explicitly.
+	Syntax:
+		CREATE PROCEDURE procedure_name
+		AS
+		sql_statement
+		GO;
+
+	Sample:
+		CREATE PROCEDURE SelectAllCustomers @City nvarchar(30)
+		AS
+		SELECT * FROM Customers WHERE City = @City
+		GO;
+
+5.6 Sub queries
+	* SELECT Statement
+	Syntax:
+		SELECT column_name [, column_name ]
+		FROM   table1 [, table2 ]
+		WHERE  column_name OPERATOR
+		   (SELECT column_name [, column_name ]
+		   FROM table1 [, table2 ]
+		   [WHERE])
+	Sample:  
+		SELECT * 
+		FROM CUSTOMERS 
+		WHERE ID IN (SELECT ID 
+			 FROM CUSTOMERS 
+			 WHERE SALARY > 4500) ;
+			 
+	* INSERT Statement
+	INSERT INTO CUSTOMERS_BKP
+	SELECT * FROM CUSTOMERS 
+	WHERE ID IN (SELECT ID 
+	FROM CUSTOMERS) ;
+			 
+	* UPDATE Statement
+	UPDATE CUSTOMERS
+	SET SALARY = SALARY * 0.25
+	WHERE AGE IN (SELECT AGE FROM CUSTOMERS_BKP
+		WHERE AGE >= 27 );
+
+	* DELETE Statement		 
+	DELETE FROM CUSTOMERS
+	WHERE AGE IN (SELECT AGE FROM CUSTOMERS_BKP
+		WHERE AGE >= 27 );
+			 
+[?] Difference between JOIN and UNION in SQL?
+	- Result:
+		JOIN: By matching conditions
+		UNION: Combines the result-set of SELECT statement
+	- Table size:
+		JOIN: generate more columns, column names and data type is not same.
+		UNION: Generate more rows, column names and data type must to be same.
 	
 -------------------------------------------------------------------------
 References:
 	- https://www.freecodecamp.org/news/sql-select-statements/
 	- https://sqlstudies.com/2014/12/03/insert-into-select-vs-select-into/
+	- https://www.tutorialspoint.com/sql/sql-sub-queries.htm
+	- https://www.w3schools.com/sql/default.asp
 -------------------------------------------------------------------------
