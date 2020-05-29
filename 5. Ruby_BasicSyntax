@@ -1,0 +1,214 @@
+Author: SANG VO
+Created Date: 2020/05/29
+TOPIC: Ruby on Rails: Basic knowledge
+-----------------------------------------------------------------
+I. COMMON KNOWLEDGE
+1.1 Declare Variables
+1.2 Conditional Statement
+1.3 Looping/Iterator Statement
+1.4 Array: Collection/List/Data Structure
+1.5 Hash: Key-Value Data Structure/Dictionary Collection
+1.6 Iteration: Looping Through Data Structures
+II. OOP
+2.1 Classes & Objects
+2.2 Ruby Object Oriented Programming Mode: On
+2.3 Encapsulation: hiding information
+2.4 Inheritance: behaviors and characteristics
+III Module: a toolbox
+---------------------------------------
+Ruby on Rails: Basic knowledge
+1.1 Declare Variables
+	# booleans
+	true_boolean = true
+	false_boolean = false
+
+	# string
+	my_name = "Leandro Tk"
+
+	# symbol
+	a_symbol = :my_symbol
+
+	# float
+	book_price = 15.80
+
+---------------------------------------
+1.2 Conditional Statement
+	if true
+	  puts "Hello Ruby If"
+	end
+
+	if 2 > 1
+	  puts "2 is greater than 1"
+	end
+
+---------------------------------------
+1.3 Looping/Iterator Statement
+	num = 1
+	while num <= 10
+	  puts num
+	  num += 1
+	end
+
+	[1, 2, 3, 4, 5].each do |num|
+	  puts num
+	end
+
+---------------------------------------
+1.4 Array: Collection/List/Data Structure
+	my_integers = [5, 7, 1, 3, 4]
+	print my_integers[0] # 5
+	print my_integers[1] # 7
+	print my_integers[4] # 4
+
+	relatives_names = [
+	  "Toshiaki",
+	  "Juliana",
+	  "Yuji",
+	  "Bruno",
+	  "Kaio"
+	]
+	print relatives_names[4] # Kaio
+
+	bookshelf = []
+	bookshelf.push("The Effective Engineer")
+	bookshelf << "Lean Startup"
+
+	print bookshelf[0] # The Effective Engineer
+	print bookshelf[1] # Lean Startup
+
+---------------------------------------
+1.5 Hash: Key-Value Data Structure/Dictionary Collection
+	hash_tk = {
+	  "name" => "Leandro",
+	  "nickname" => "Tk",
+	  "nationality" => "Brazilian"
+	}
+
+	// Add new key/value
+	hash_tk["age"] = 24
+
+	print "My name is #{hash_tk["name"]}" # My name is Leandro
+	print "But you can call me #{hash_tk["nickname"]}" # But you can call me Tk
+	print "And by the way I'm #{hash_tk["nationality"]}" # And by the way I'm Brazilian
+
+---------------------------------------
+1.6 Iteration: Looping Through Data Structures
+	hash_tk = {
+	  "name" => "Leandro",
+	  "nickname" => "Tk",
+	  "nationality" => "Brazilian",
+	  "age" => 24
+	}
+
+	hash_tk.each do |attribute, value|
+	  puts "#{attribute}: #{value}"
+	end
+
+------------------------------------------------------------------------------
+II. OOP
+2.1 Classes & Objects
+	A. Classes has similar components
+		Is mechanism of binding data members and associated methods in single unit.
+		It is logical existence, memory space is not allocated when it created.
+		Definition is create once
+	B. Objects 
+		Is instance of class or variable of class
+		It is physical existence, require memory space when it is created.
+		Can create many times as you want.
+	
+		※Have two main characteristics: data and behavior
+		Data = Attributes
+		Behavior = Methods
+---------------------------------------
+2.2 Ruby Object Oriented Programming Mode: On
+	class Vehicle
+	  def initialize(number_of_wheels, type_of_tank, seating_capacity, maximum_velocity)
+		@number_of_wheels = number_of_wheels
+		@type_of_tank = type_of_tank
+		@seating_capacity = seating_capacity
+		@maximum_velocity = maximum_velocity
+	  end
+	  def number_of_wheels
+		@number_of_wheels
+	  end
+
+	  def set_number_of_wheels=(number)
+		@number_of_wheels = number
+	  end
+	end
+	tesla_model_s = Vehicle.new(4, 'electric', 5, 250)
+	tesla_model_s.number_of_wheels # => 4
+
+---------------------------------------
+2.3 Encapsulation: hiding information
+	class Person
+	  def initialize(name, age)
+		@name = name
+		@age  = age
+	  end
+	end
+	tk = Person.new("Leandro Tk", 24)
+	[ERROR]_Not is a json object.
+	tk.name
+	> NoMethodError: undefined method `name'
+
+	=> Must to be called by:
+	class Person
+	  def initialize(name, age)
+		@name = name
+		@age  = age
+	  end
+	  
+	  def name
+		@name
+	  end
+	  
+	  def age
+		@age
+	  end
+	end
+
+---------------------------------------
+2.4 Inheritance: behaviors and characteristics
+	In object oriented programming, classes can inherit common characteristics (data) and behavior (methods) from another class.
+	class Car
+	  attr_accessor :number_of_wheels, :seating_capacity, :maximum_velocity
+
+	  def initialize(number_of_wheels, seating_capacity, maximum_velocity)
+		@number_of_wheels = number_of_wheels
+		@seating_capacity = seating_capacity
+		@maximum_velocity = maximum_velocity
+	  end
+	end
+
+	my_car = Car.new(4, 5, 250)
+	my_car.number_of_wheels # 4
+	my_car.seating_capacity # 5
+	my_car.maximum_velocity # 250
+
+------------
+	"<" operator to show a class inherits from another
+	class ElectricCar < Car
+	end
+	tesla_model_s = ElectricCar.new(4, 5, 250)
+	tesla_model_s.number_of_wheels # 4
+	tesla_model_s.seating_capacity # 5
+	tesla_model_s.maximum_velocity # 250
+
+------------------------------------------------------------------------------
+III Module: a toolbox
+	// module
+	module Skill
+	  def average_speed
+		puts "My average speed is 20mph"
+	  end
+	end
+
+	// Using defined modules
+	class RunnerAthlete
+	  include Skill
+
+	  def initialize(name)
+		@name = name
+	  end
+	end

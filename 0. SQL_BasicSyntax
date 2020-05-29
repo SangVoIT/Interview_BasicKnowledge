@@ -1,0 +1,183 @@
+Author: SANG VO
+Created Date: 2020/05/29
+TOPIC: SQL Syntax_BASIC
+Note: Usually using methods, functions, etc.
+-----------------------------------------------------------------
+I. COMMONS
+1. SELECT Statement
+2. INSERT Statement
+3. UPDATE Statement
+4. GROUP BY Statement
+5. ORDER BY Statement
+6. DELETE Statement
+
+2. FULL OUTER JOIN
+2.1 LEFT JOIN (RIGHT JOIN)
+2.2 FULL OUTER JOIN
+2.3 INNER JOIN
+
+3. FUNCTIONS
+3.1 COUNT
+3.2 SUM
+3.3 LIKE
+3.4 DISTINCT
+
+IV. Database Structure:
+4.1 CREATE TABLE
+4.2 CHECK
+4.3 ALTER TABLE
+
+V. ADVANCE:
+5.1 "SELECT INTO" Statement
+5.2 "INSERT INTO SELECT" Statement
+5.3 UPDATE "Columns" Statement
+-----------------------------------------------------------------
+I. COMMONS
+1. SELECT Statement
+	Full display of the data in the student table, sample:
+		USE fcc_sql_guides_database;
+		SELECT studentID, FullName, sat_score, programOfStudy, rcd_Created, rcd_Updated 
+		FROM student
+		WHERE (studentID BETWEEN 1 AND 5 OR studentID = 8)
+			AND
+			sat_score NOT IN (1000, 1400);
+		/*WHERE statement with multiple conditions*/
+
+	Get list of fields of study (DISTINCT), sample:
+		SELECT DISTINCT programOfStudy FROM student;
+	
+2. INSERT Statement
+	Single INSERT statement, syntax: 	
+		INSERT INTO table_name (column1, column2, column3, ...)
+		VALUES (value1, value2, value3, ...);
+
+	Multiple INSERT statement, syntax:
+		INSERT INTO Person(Id, Name, DateOfBirth, Gender)
+		VALUES (1, ‘John Lennon’, ‘1940-10-09’, ‘M’), (2, ‘Paul McCartney’, ‘1942-06-18’, ‘M’),
+		(3, ‘George Harrison’, ‘1943-02-25’, ‘M’), (4, ‘Ringo Starr’, ‘1940-07-07’, ‘M’);
+
+	
+3. UPDATE Statement
+	UPDATE table_name
+	SET column1 = value1, column2 = value2, ...
+	WHERE condition;
+	
+4. GROUP BY Statement
+	SELECT column_name, COUNT(1), AVG(num_field) AS avg_new_field_name
+	FROM table_name
+	GROUP BY column_name
+	HAVING COUNT(*) > value;		/**Condition on GROUP: HAVING/
+	※： COUNT(*) statement must to be replaced by COUNT(1) for performance higher.
+
+5. ORDER BY Statement
+	SELECT studentID, FullName, sat_score
+	FROM student
+	ORDER BY FullName DESC, sat_score ASC;
+	
+6. DELETE Statement
+	DELETE FROM table_name
+	WHERE condition;
+
+-------------------------------------------------------------------------
+II. JOIN:
+2.1 LEFT JOIN (RIGHT JOIN)
+	returns all rows from the left table, and the matched rows from the right table. 
+	SELECT * FROM A x LEFT JOIN B y ON y.aId = x.Id
+	
+2.2 FULL OUTER JOIN
+	returns all rows for which there is a match in either of the tables. 
+	SELECT Customers.CustomerName, Orders.OrderID
+	FROM Customers
+	FULL OUTER JOIN Orders
+	ON Customers.CustomerID=Orders.CustomerID
+	ORDER BY Customers.CustomerName
+	
+2.3 INNER JOIN
+	Return complete matching values in both tables.
+	SELECT column_name(s)
+	FROM table1
+	INNER JOIN table2
+	ON table1.column_name = table2.column_name;
+-------------------------------------------------------------------------
+III. FUNCTIONS
+1. COUNT: 
+	If is a NOT NULL value, then interval count. (number of rows)
+	So Count(1) and Count(0) is the same result. 
+		
+2. SUM: count value of rows
+
+3. LIKE: 
+	LIKE is used in a WHERE or HAVING
+	SELECT studentID, FullName, sat_score, rcd_updated
+	FROM student 
+	WHERE 
+		FullName LIKE 'Monique%' OR 
+		FullName LIKE '%Greene'; 
+		
+4. DISTINCT
+	SELECT DISTINCT programOfStudy FROM student;
+	
+-------------------------------------------------------------------------
+IV. Database Structure:
+4.1 CREATE TABLE
+CREATE TABLE table_name (
+    column_1 datatype,
+    column_2 datatype,
+    column_3 datatype
+);
+
+4.2 CHECK
+CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    City varchar(255),
+	/* CHECK (Age>=18) 											※: Single CHECK */
+    CONSTRAINT CHK_Person CHECK (Age>=18 AND City='Sandnes')	※: Multiple CHECK
+);
+--------------
+4.3 ALTER TABLE
+	ALTER TABLE table_name
+	ADD column_name datatype;
+
+-------------------------------------------------------------------------
+V. ADVANCE:
+Some bellow advance methods is usually used for generating data.
+5.1 "SELECT INTO" Statement
+TODO: SELECT INTO is used to create a new table and puts the data in it.
+Syntax: 
+	SELECT column-names
+		  INTO new-table-name
+		  FROM table-name
+		 WHERE EXISTS 
+			  (SELECT column-name
+				 FROM table-name
+				WHERE condition)
+Sample:
+	SELECT * INTO SupplierUSA
+		  FROM Supplier
+		 WHERE Country = 'USA';
+		
+
+
+5.2 "INSERT INTO SELECT" Statement
+TODO: "INSERT INTO SELECT" is used to inserts data into an existing table.
+Syntax:
+	INSERT INTO table2 (column1, column2, column3, ...)
+	SELECT column1, column2, column3, ...
+	FROM table1
+	WHERE condition;
+
+5.3 UPDATE "Columns" Statement
+	UPDATE table_name1
+	SET table_name1.column1 = table_name2.columnA
+		table_name1.column2 = table_name2.columnB
+	FROM table_name1
+	JOIN table_name2 ON table_name1.ForeignKey = table_name2.Key
+	
+-------------------------------------------------------------------------
+References:
+	- https://www.freecodecamp.org/news/sql-select-statements/
+	- https://sqlstudies.com/2014/12/03/insert-into-select-vs-select-into/
+-------------------------------------------------------------------------

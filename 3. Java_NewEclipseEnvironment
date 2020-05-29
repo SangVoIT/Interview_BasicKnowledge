@@ -1,0 +1,77 @@
+Author: SANG VO
+Created Date: 2020/05/29
+TOPIC: Setting new environment on Eclipse
+Note: JAVA (Spring MVC)
+-----------------------------------------------------------------
+I. New Eclipse Configuration
+II. Setting for Speed up Eclipse
+III. For new project configuration
+-----------------------------------------------------------------
+I. New Eclipse Configuration:
+	- Fonts and Colors: Consolas 10
+	- Compare/Path: 	Ignore white spaces
+	- AnyEdit: 			Remove Trailing WhiteSpace
+	- Java/Code Styles/Formatters	=> Create new profile
+	- Text Editor: 		Show white spaces; insert spaces for tabs
+	- Java build path
+	- Server
+	- Tomcat (* existing)
+
+
+II. Setting for Speed up Eclipse:
+	1. Show the heap status (General -> Show heap status) can keep an eye on memory and hit the button to clear!
+	2. Eclipse is not a word processor. Better to disable the spell check. 
+		Disabling spell check will reduce the eclipse burden by going to 
+		Windows-->Preference-->General-->Editors --> Text Editors-->Spelling
+	3. Remove unwanted activation of some of the plugins at start-up by going to windows-->preference-->General-->Startup and shutdown. 
+		Also make sure you don't use those plugins in any of your views
+	4. Modify eclipse.ini(set the Xmn(new generation size), Xms and Xmx, enable parallel GC) Change/Add.  (Ensure you have enough memory )
+		-Xmn128m
+		-Xms1024m
+		-Xmx1024m
+		-Xss2m
+		-XX:PermSize=128m
+		-XX:MaxPermSize=128m
+		-XX:+UseParallelGC
+		
+		( -XX:+UseStringDeduplication
+			Enables the String Deduplication feature within G1
+		-XX:+AggressiveOpts
+			Enables the use of aggressive performance optimization features
+		-Xss2m
+			is used to limit how much memory a stack consumes
+		-Xmn512m
+			the size of the heap for the young generation
+		-Xms1024m
+			this is initial Java Heap size
+		-Xmx1024m
+			this is maximum Java Heap size)
+			
+	sample: 
+		-vm (exact path javaw)
+		C:\Java\JDK\1.8\bin\javaw.exe
+		-vmargs 	(after here for configure)
+		-Dosgi.requiredJavaVersion=1.8
+		-Dosgi.instance.area.default=@user.home/eclipse-workspace
+		-XX:+UseG1GC
+		-XX:+UseStringDeduplication
+		--add-modules=ALL-SYSTEM
+		-Dosgi.requiredJavaVersion=1.8
+		-Dosgi.dataAreaRequiresExplicitInit=true
+		-Xmn512m
+		-Xms1024m
+		-Xmx1024m
+
+		
+III. For new project configuration:
+	1. "Java Compiler" => Change to appropriate Version
+	2. "Java Facets" => Choose "Java"; "Runtimes"
+	3. Clean // Clear and Build again project
+	4. Maven Update // Update library download on Maven Repository.
+	5. "Deployment Assembly" => Add lib for Deployment.
+	7. "Java Build Path" => "Library" => Edit JRE => change to appropriate Version
+	
+	/* Check Import project for running downloaded projects on web*/
+	- Maven War Plugin
+	- Plugin JSP; servlet
+	- Check JRE (Eclipse) and JRE (Run maven configuration)
