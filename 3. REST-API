@@ -1,0 +1,120 @@
+Author: SANG VO
+Created Date: 2020/05/29
+TOPIC: REST API  Annotation
+Note: Spring MVC
+-----------------------------------------------------------------
+Annotation @RequestMapping
+Annotation @PathVariable
+Annotation @RequestMapping
+Annotation @ModelAttribute
+-----------------------------------------------------------------
+Annotation @RequestMapping
+Used: @RequestMapping is most using in Spring MVC, it is used to map "Request URL" with that method.
+SAMPLE:
+	@Controller
+	@RequestMapping("/index")
+	public class BaseController {
+		// Default request mapping
+		public String index() {
+		  return "index";
+		}
+	  
+		// @RequestMapping("/method0")
+		@RequestMapping(value = { "/", "/home" })
+		  public String method0() {
+			return "page0";
+		  }
+		  
+		// @RequestMapping(value="/test", method = RequestMethod.GET)
+		@RequestMapping(value="/test", method = RequestMethod.POST)
+		public String doPost() {
+		  return "test2";
+		}
+		
+		// @RequestMapping(value = "/method2", produces = { "application/json", "application/xml" }, consumes = "text/html")
+		// consumes: request has content-type like the value in declare
+		// produces: determine return value type, (REST-API)
+		@RequestMapping(value = "/method1", headers = { "name=kai", "id=1" })
+		public String method1() {
+		  return "page1";
+		}
+	}
+
+
+
+-----------------------------------------------------------------
+Annotation @PathVariable
+USED: is used for sending a parameter in URL. (not security)
+SAMPLE: 
+	JAVA: 
+		@RequestMapping("/test2/{id}/{name}")
+		public String test2(@PathVariable("id") int id, @PathVariable("name") String name, Model model) {
+		  model.addAttribute("id", id);
+		  model.addAttribute("name", name);
+		  return "test2";
+		}
+	HTML: 
+	  <a href="test2/2/kai">/test2/2/kai</a>
+
+-----------------------------------------------------------------
+Annotation @RequestMapping
+SAMPLE: 
+	JAVA:
+		@RequestMapping("/test3")
+		public String test3(@RequestParam("name") String name, @RequestParam("id") int id, Model model) {
+		  model.addAttribute("id", id);
+		  model.addAttribute("name", name);
+		  return "test3";
+		}
+	HTML  
+		<form action="test3">
+		  Id: <input type="number" name="id" /> <br /> 
+		  Name: <input type="text" name="name" /> <br /> 
+		  <input type="submit" value="submit" />
+		</form>
+
+-----------------------------------------------------------------
+※　MOST POWERFULL for REST-API with Annotation @ModelAttribute
+Annotation @ModelAttribute
+USED: it is used to send object from Javascript to JAVA server.
+SAMPLE:
+	HTML:
+		<form:form method="POST" action="/spring-mvc-basics/addEmployee"
+		  modelAttribute="employee">
+			<form:label path="name">Name</form:label>
+			<form:input path="name" />
+			 
+			<form:label path="id">Id</form:label>
+			<form:input path="id" />
+			 
+			<input type="submit" value="Submit" />
+		</form:form>
+
+	JAVA: Rest-API declare
+		@RequestMapping(value = "/addEmployee", method = RequestMethod.POST)
+		public String submit(
+		  @ModelAttribute("employee") Employee employee,
+		  BindingResult result, ModelMap model) {
+			if (result.hasErrors()) {
+				return "error";
+			}
+			model.addAttribute("name", employee.getName());
+			model.addAttribute("id", employee.getId());
+	 
+			return "employeeView";
+		}
+		
+	JAVA: Object definition	
+		@ModelAttribute("employee")
+		public class Employee {
+	 
+		private long id;
+		private String name;
+	 
+		public Employee(long id, String name) {
+			this.id = id;
+			this.name = name;
+		}
+	 
+		// standard getters and setters removed
+	}
