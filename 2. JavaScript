@@ -1,0 +1,110 @@
+Author: SANG VO
+Created Date: 2020/06/03
+TOPIC: Javascript
+Note: 
+--------------------------------------------------------------------------------
+I. Variable scoped:
+II. Speed up - Clearly Javascript code
+2.1 Spread operator: console.log(...ArrayName)
+2.2 for…of iterator
+2.3 includes()
+2.4 some()
+2.5 every()
+2.6 filter()
+2.7 map()
+2.8 reduce()
+III. Javascript selector
+--------------------------------------------------------------------------------
+I. Variable scoped:
+	var: function + global scoped
+	let: block scoped
+	block scoped constant
+--------------------------------------------------------------------------------
+II. Speed up - Clearly Javascript code
+-------------------------------
+1. Spread operator: console.log(...ArrayName)
+Useful: It’s a quick and intuitive way to pass arguments (arrays and object literals)
+Sample:
+	const favoriteFood = ['Pizza','Fries','Swedish-meatballs']; 
+	console.log(...favoriteFood); 	// =>Pizza Fries Swedish-meatballs
+
+-------------------------------
+2. for…of iterator
+Useful: Leads to clean and readable code
+Sample:
+	const favoriteFood = ['Pizza','Fries','Swedish-meatballs']; 
+	for (const item of favoriteFood) {
+		console.log(item)
+	}
+
+-------------------------------
+3. includes()
+Useful: 
+	Is used to check if a specific string exists in a collection. (case sensitive:SCHOOL and school is TRUE)
+	To build simple search-functionality
+Sample:	
+	const garage = ['BMW', 'AUDI', 'VOLVO'];
+	const findCar = garage.includes('BMW');
+	cnosole.log(findCar); => Result = TRUE
+	
+-------------------------------
+4. some()
+Useful:	
+	similar to the concept of the incluses(), except the argument is a function and not a string
+Sample:
+	const listAge = [16, 18, 20];
+	listAge.some((person) => person >= 18);
+	// Return TRUE
+	
+-------------------------------
+5. every()
+Useful: It makes sure every item passes the test
+Sample:
+	Const age = [15, 20, 25];
+	// Version ES5
+	age.every(function(person) {
+		return person >= 18; => Return false;
+	});
+	// Version ES6
+	age.every((person) => person >= 18);
+	
+-------------------------------
+6. filter()
+Useful: const productPriceList = [200, 350, 1500, 500];
+Sample:
+	// filter and return the values which required 
+	// ES5: 
+		const filterProduct = productPriceList.filter(function(price) {return price >= 30;});	
+	// ES6: 
+		const filterProduct = productPriceList.filter((value) => value >= 1500);
+
+-------------------------------
+7. map()	
+Useful: calculate price with lamda (x);
+Sample:
+	// ES5: 
+	const mapProduct = productPriceList.map(function(price) {return price*1.5;});			
+	
+	// ES6: 
+	const mapProduct = productPriceList.map((price) => return price*1.5);			
+	
+-------------------------------
+8. reduce()
+Useful: it “reduces” the whole array into one value.
+Sample:
+	// ES5: 
+	const reduceProduct = productPriceList.reduce(function(first, last) {return first + last;});			
+	
+	// ES6: 
+	const reduceProduct = productPriceList.reduce((first, last) => first + last);
+	
+--------------------------------------------------------------------------------
+III. Javascript selector
+document.getElementById()
+document.getElementsByTagName()
+document.getElementsByClassName()
+document.querySelector()
+document.querySelectorAll()
+
+https://www.freecodecamp.org/news/7-javascript-methods-that-will-boost-your-skills-in-less-than-8-minutes-4cc4c3dca03f/
+
