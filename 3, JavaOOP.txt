@@ -8,6 +8,8 @@ Note: OOP Concept
 3. Java Inheritance
 4. Java Polymorphism
 
+-------------------------------------------------------------------------------
+[?] Variable Scopes
 [?] Abstract class vs Interface class
 [?] Static vs NON-static
 -------------------------------------------------------------------------------
@@ -66,13 +68,13 @@ Sample:
 	}
 	
 -------------------------------------------------------------------------------
+[?] Variable Scopes
 Private: Read/Modify: NON
 Protected: Read: Yes,  Modify: NON
 Public: Read/Modify: YES
--------------------------------------------------------------------------------
-
 
 -------------------------------------------------------------------------------
+[?] Abstract class vs Interface class
 					Abstract class  					Interface class:
 Keyword: 			Abstract 						- 	Interface
 Type of variable: 	Static, non-static				- 	Static
@@ -80,10 +82,10 @@ Access modifiers: 	All								- 	Only public access modifier
 When to use:		To avoid independence			- 	For future enhancement
 
 -------------------------------------------------------------------------------
+[?] Static vs NON-static
 		Static 											NON-static
 Difine:	Static int intA;							-	int intA;
 Memory:	When instance (object) is created			-	when loading of the method
 		multiple times by whenever object is created-	Only once time in the program
 		
 		
--------------------------------------------------------------------------------
