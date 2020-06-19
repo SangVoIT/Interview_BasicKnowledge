@@ -1,0 +1,80 @@
+
+-------------------------------------------------------------------------------
+1, Factory Method Pattern
+	+ Define an interface or abstract class for creating an object 
+	+ Let "the subclasses decide which class to instantiate".
+	
+	--------------------------------
+	<<abstractclass>> Car 
+	Lexus 	(ExtendClass)
+	Toyota 	(ExtendClass)
+	Honda 	(ExtendClass)
+	--------------------------------
+	USING: 
+	objCar {
+		// Decide to  get an instance object (extendClass)
+	}
+-------------------------------------------------------------------------------
+2, Abstract Factory Pattern: 
+	In sample (1); 
+	
+	----------------------------------------------------------------
+	<<abstractclass>> Vehicle	
+	<<abstract>> getCar()
+	<<abstract>> getBikeCycle()
+	--------------------------------
+	<<abstractclass>> Car 			(AbstractFactoryClass)
+	Lexus 	(ExtendClass)
+	Toyota 	(ExtendClass)
+	Honda 	(ExtendClass)
+	--------------------------------
+	<<abstractclass>> BikeCycle 	(AbstractFactoryClass)
+	NiTrek 	(ExtendClass)
+	Giant  	(ExtendClass)
+	Scott  	(ExtendClass)
+	----------------------------------------------------------------
+	USING: 
+	objVehicle {
+		// Decide to  get an instance object (Car or BikeCycle)
+	}
+
+-------------------------------------------------------------------------------
+3. Singleton Pattern 
+	+ Define a class that has "only one instance"
+	+ And provides a global point of access to it
+
+-------------------------------------------------------------------------------
+4. Prototype Design Pattern
+	+ Cloning of an existing object instead of creating new one 
+	+ And can also be customized as per the requirement.
+	
+	--------------------------------
+	Interface Prototype {
+		Public Prototype getClone();
+	}
+	--------------------------------
+	<<classImplement>> EmployeeRecord implements Prototype {
+		Private intCheckIn;
+		// Constructor
+		Public EmployeeRecord(intCheckIn) {
+			this.intCheckIn = intCheckIn + 1;
+		}
+		
+		public void showRecord() {
+			System.out.println("Check-in times: " + this.intCheckIn);
+		}
+		
+		@Override
+		public Prototype getClone() {
+			return new EmployeeRecord();
+		}
+	}
+	--------------------------------
+	USING: 
+	objCar {
+		EmployeeRecord e1=new EmployeeRecord(1);  
+        e1.showRecord();  					// Show first record
+        System.out.println("\n");  
+        EmployeeRecord e2=(EmployeeRecord) e1.getClone();  
+        e2.showRecord();   					// Show next record 
+	}
