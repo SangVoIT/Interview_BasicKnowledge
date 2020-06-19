@@ -13,16 +13,15 @@ II. Structural Pattern:
 2.2 Bridge Pattern
 2.3 Composition Pattern
 III. Behavior Pattern
-3.1 Iterator Pattern
-3.2 Observer Pattern
-3.3 Strategy Pattern
+3.1 Observer Pattern
+3.2 Strategy Pattern
 -------------------------------------------------------------------------------
 -------------------------------------------------------------------------------
 I. Creational Pattern:
 1.1 Factory Pattern
 Useful:
 	+ Define an interface or abstract class for creating an object 
-	+ Let "the subclasses decide which class to instantiate".
+	[< IMPORTANT:  Let "the subclasses decide which class to instantiate" -->]
 Sample:
 	--------------------------------
 	<<abstractclass>> Car 
@@ -86,7 +85,7 @@ Useful:
 	+ And provides a global point of access to it
 Sample:
 	class A{  
-	 private static A obj=new A();//Early, instance will be created at load time  
+	 [< IMPORTANT:  private static A obj=new A();//Early, instance will be created at load time   -->]
 	 private A(){}  
 	   
 	 public static A getA(){  
@@ -101,7 +100,7 @@ Sample:
 1.4 Prototype Pattern
 Useful:
 	+ Cloning of an existing object instead of creating new one 
-	+ And can also be customized as per the requirement.
+	+ [< IMPORTANT: And can also be customized as per the requirement.-->]
 	
 Sample:
 	--------------------------------
@@ -139,20 +138,115 @@ Sample:
 -------------------------------------------------------------------------------
 II. Structural Pattern:
 2.1 Adapter Pattern
+Useful:
+	converts the interface of a class into another interface that a client wants
 
+Sample:
+	[< IMPORTANT:  Using methods of ExtendClass and "implement" methods an interface -->]
+	public class BankCustomer extends BankDetails implements CreditCard {  
+		...
+	}
+	
+	BankCustomer extends BankDetails implements CreditCard
 -------------------------------------------------------------------------------
 2.2 Bridge Pattern
-
+Useful:	
+	decouple the functional abstraction from the implementation so that the two can vary independently.
+	[< IMPORTANT: Like MVC mdoel, Controller _ Service & ServiceImplemnt (Independently) -->]
+Sample:
+	<<Interface>> QUESTION  <-  QUESTIONManager <- QUESTIONFormat
+		
+	<<Implement Interface>> QUESTIONImplement
+	
+	※Controller => Interface <= ImplementInterface
 -------------------------------------------------------------------------------
 2.3 Composition Pattern
+Useful:
+	allow clients to operate in generic manner on objects 
+	that [< IMPORTANT:  may or may not represent a hierarchy of objects -->]
 
+Sample:
+	<<Interface>> Employee
+	[CommonMethod]: getID, getNam, getSalary
+	[PriorityMethod]: AddEmp, RemoveEmp,...
+	<<Implement>> Accountant
+		Implement: CommonMethod
+	<<Implement>> Cashier
+		Implement: CommonMethod
+	<<Implement>> BankManager
+		Implement: CommonMethod + PriorityMethod
+	
 -------------------------------------------------------------------------------
 -------------------------------------------------------------------------------
 III. Behavior Pattern
-3.1 Iterator Pattern
-
 -------------------------------------------------------------------------------
-3.2 Observer 
+3.1 Observer 
+Useful:
+	just define a one-to-one dependency so that when one object changes state, 
+	[< IMPORTANT:  all its dependents are notified and updated automatically. -->]
 
+	<<SubjectInterface>>
+	class interface Subject  { public void notifyUpdate(Message m); }
+	
+	<<ImplementSubject>>
+	class MessagePublisher implements Subject {
+	    @Override
+		public void notifyUpdate(Message m) {
+			for(Observer o: observers) {
+				o.update(m);
+			}
+		}
+	}
+	<<ObserverableClass>>
+	public interface Observer { public void update(Message m); }
+	
+	<<Implement Observer>>
+	public class MessageSubscriberOne implements Observer 
+	{
+		@Override
+		public void update(Message m) {
+			System.out.println("MessageSubscriberOne :: " + m.getMessageContent());
+		}
+	}
+
+	<<Implement Observer>>
+	public class MessageSubscriberTwo implements Observer 
+	{
+		@Override
+		public void update(Message m) {
+			System.out.println("MessageSubscriberTwo :: " + m.getMessageContent());
+		}
+	}
+	
 -------------------------------------------------------------------------------
-3.3 Strategy Pattern
+3.2 Strategy Pattern
+Useful:
+	Defines a family of functionality, encapsulate each one, and make them interchangeable
+	(LIKE Factory Pattern)
+	
+	public interface Strategy { public float calculation(float a, float b);  }
+	
+	public class Addition implements Strategy{}
+	public class Subtraction  implements Strategy{ }
+	public class Multiplication implements Strategy{  }
+	
+	{IMPORTANT}
+	public class Context {  
+		private Strategy strategy;  
+       
+        public Context(Strategy strategy){  
+           this.strategy = strategy;  
+        }  
+	    
+        public float executeStrategy(float num1, float num2){  
+           return strategy.calculation(num1, num2);  
+        }  
+	}
+	Using:
+	public void main() {
+		context = new Context(new Subtraction());       
+		System.out.println("Subtraction = " + context.executeStrategy(value1, value2)); 
+		
+		context = new Context(new Multiplication());        
+		System.out.println("Multiplication = " + context.executeStrategy(value1, value2));  
+	}
