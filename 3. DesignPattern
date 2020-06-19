@@ -1,37 +1,78 @@
-
+Author: SANG VO
+Created Date: 2020/06/03
+TOPIC: Javascript
+Note: Design Pattern
 -------------------------------------------------------------------------------
-1, Factory Method Pattern
+I. Creational Pattern:
+1.1 Factory Pattern
+1.2 Abstract Factory Pattern
+1.3 Singleton Pattern
+1.4 Prototype Pattern
+II. Structural Pattern:
+2.1 Adapter Pattern
+2.2 Bridge Pattern
+2.3 Composition Pattern
+III. Behavior Pattern
+3.1 Iterator Pattern
+3.2 Observer Pattern
+3.3 Strategy Pattern
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+I. Creational Pattern:
+1.1 Factory Pattern
+Useful:
 	+ Define an interface or abstract class for creating an object 
 	+ Let "the subclasses decide which class to instantiate".
-	
+Sample:
 	--------------------------------
 	<<abstractclass>> Car 
+	--------------------------------
 	Lexus 	(ExtendClass)
 	Toyota 	(ExtendClass)
 	Honda 	(ExtendClass)
 	--------------------------------
 	USING: 
-	objCar {
+	GetCarFactory {
 		// Decide to  get an instance object (extendClass)
+		public Car getCar(String carStyle) {
+		// ... => create new object depend on carStyle parameter 
+		}
 	}
--------------------------------------------------------------------------------
-2, Abstract Factory Pattern: 
+------------------------------------
+1.2 Abstract Factory Pattern
+Useful:
 	In sample (1); 
 	
+Sample:
 	----------------------------------------------------------------
-	<<abstractclass>> Vehicle	
-	<<abstract>> getCar()
-	<<abstract>> getBikeCycle()
+	<<abstractclass>> AbstractFactory	
+	<<abstract>> Car getCar();
+	<<abstract>> BikeCycle getBikeCycle();
 	--------------------------------
 	<<abstractclass>> Car 			(AbstractFactoryClass)
 	Lexus 	(ExtendClass)
 	Toyota 	(ExtendClass)
-	Honda 	(ExtendClass)
+	Honda 	(ExtendClass
+	--------------------------------
+	=> GetCarFactory Class
+	{
+	public Car getCar(String parameterCar) { => Create New object}
+	}
 	--------------------------------
 	<<abstractclass>> BikeCycle 	(AbstractFactoryClass)
 	NiTrek 	(ExtendClass)
 	Giant  	(ExtendClass)
 	Scott  	(ExtendClass)
+	--------------------------------
+	=> GetBikeCycleFactory Class	
+	{
+	public BikeCycle getBikeCycle(String parameterBikeCycle) { => Create New object}
+	}
+	-------------------------------- (***)
+	<<Class>> FactoryCreator 
+ 	{
+		Public AbstractFactory getFactory(String choice){}
+	}
 	----------------------------------------------------------------
 	USING: 
 	objVehicle {
@@ -39,15 +80,30 @@
 	}
 
 -------------------------------------------------------------------------------
-3. Singleton Pattern 
+1.3 Singleton Pattern
+Useful:
 	+ Define a class that has "only one instance"
 	+ And provides a global point of access to it
-
+Sample:
+	class A{  
+	 private static A obj=new A();//Early, instance will be created at load time  
+	 private A(){}  
+	   
+	 public static A getA(){  
+	  return obj;  
+	 }  
+	  
+	 public void doSomething(){  
+	 //write your code  
+	 }  
+	}  
 -------------------------------------------------------------------------------
-4. Prototype Design Pattern
+1.4 Prototype Pattern
+Useful:
 	+ Cloning of an existing object instead of creating new one 
 	+ And can also be customized as per the requirement.
 	
+Sample:
 	--------------------------------
 	Interface Prototype {
 		Public Prototype getClone();
@@ -78,3 +134,25 @@
         EmployeeRecord e2=(EmployeeRecord) e1.getClone();  
         e2.showRecord();   					// Show next record 
 	}
+
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+II. Structural Pattern:
+2.1 Adapter Pattern
+
+-------------------------------------------------------------------------------
+2.2 Bridge Pattern
+
+-------------------------------------------------------------------------------
+2.3 Composition Pattern
+
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+III. Behavior Pattern
+3.1 Iterator Pattern
+
+-------------------------------------------------------------------------------
+3.2 Observer 
+
+-------------------------------------------------------------------------------
+3.3 Strategy Pattern
