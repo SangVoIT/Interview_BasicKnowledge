@@ -1,9 +1,17 @@
-Abstract
-Encapsulation
-Inheritance
-
+Author: SANG VO
+Created Date: 2020/06/19
+TOPIC: Javascript
+Note: OOP Concept
 -------------------------------------------------------------------------------
-Java Abstract Classes and Methods 
+1. Java Abstract
+2. Java Encapsulation
+3. Java Inheritance
+4. Java Polymorphism
+
+[?] Abstract class vs Interface class
+[?] Static vs NON-static
+-------------------------------------------------------------------------------
+1. Java Abstract Classes and Methods
 Data abstraction is the process of hiding certain details and showing only essential information to the user.
 	- Abstract class: is a restricted class that cannot be used to create objects
 		(to access it, it must be inherited from another class)
@@ -18,7 +26,7 @@ Sample:
 		// => Error; abstract class is not have object
 	}
 -------------------------------------------------------------------------------
-Java Encapsulation _ (Acess/non-access attribute setting)
+2. Java Encapsulation _ (Acess/non-access attribute setting)
 Java Encapsulation is to make sure that "sensitive" data is hidden from users.
 declare class variables/attributes as private
 provide public get and set methods to access and update the value of a private variable
@@ -28,7 +36,7 @@ Sample:
 	Public string sName;			// Non-encapsulation
 
 -------------------------------------------------------------------------------
-Java Inheritance (Inherit attributes of parent class)
+3. Java Inheritance (Inherit attributes of parent class)
 In Java, it is possible to inherit attributes and methods from one class to another. 
 We group the "inheritance concept" into two categories:
 	subclass (child) - the class that inherits from another class (JAVACODE: Extends parentClass)
@@ -44,7 +52,7 @@ Sample:
 	
 	
 -------------------------------------------------------------------------------
-Java Polymorphism (Extend methods of parent class)
+4. Java Polymorphism (Extend methods of parent class)
 Polymorphism means "many forms", and it occurs when we have many classes that are related to each other by inheritance.
 Sample:
 	class Animal {
@@ -68,7 +76,7 @@ Public: Read/Modify: YES
 					Abstract class  					Interface class:
 Keyword: 			Abstract 						- 	Interface
 Type of variable: 	Static, non-static				- 	Static
-Access fodifiers: 	All								- 	Only public access modifier
+Access modifiers: 	All								- 	Only public access modifier
 When to use:		To avoid independence			- 	For future enhancement
 
 -------------------------------------------------------------------------------
